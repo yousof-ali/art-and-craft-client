@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ text, onClick, disabled, className }) => {
+const Button = ({ text, onClick, disabled, className, children }) => {
     return (
       <button
         onClick={onClick}
@@ -9,7 +9,12 @@ const Button = ({ text, onClick, disabled, className }) => {
           ${disabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-500'} 
           ${className}`}
       >
-        {text}
+        {
+          children?(<div className='flex items-center gap-2'>
+          {text}{children}
+          </div>):(<span>{text}</span>)
+        }
+        
       </button>
     );
   };
