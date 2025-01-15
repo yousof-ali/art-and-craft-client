@@ -1,0 +1,13 @@
+li {
+    font-weight: bold;
+    padding-right: 6px;
+    
+}
+li:hover{
+    color: #db2777 !important;
+}
+li .active{
+    color:white !important;
+    /* background-color: #e11d48 !important; */
+    background-color: #db2777 !important;
+}
