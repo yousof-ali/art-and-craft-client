@@ -36,7 +36,7 @@ const Header = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl"><img className='w-12' src="/logo.png" alt="" />𝕮𝖗𝖆𝖋𝖙𝖔𝖗𝖆</a>
+                <a className="btn btn-ghost text-xl"><img className='w-10' src="/logo.png" alt="" />𝕮𝖗𝖆𝖋𝖙𝖔𝖗𝖆</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu  menu-horizontal px-1">

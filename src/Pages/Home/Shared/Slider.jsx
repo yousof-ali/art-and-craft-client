@@ -14,13 +14,20 @@ import "swiper/css";
 import { Link } from 'react-router-dom';
 import PrimaryButton from "../../../Component/PrimaryButton"
 import { FaArrowRight } from "react-icons/fa6";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 
 const Slider = () => {
+    AOS.init({
+        duration: 1000,
+        easing: "ease-in-out",
+        once: true,
+      });
     return (
         <div className='max-w-[1800px]  mx-auto'>
             <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                modules={[Navigation,Autoplay, Pagination, Scrollbar, A11y]}
                 slidesPerView={1}
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 3000 }}
@@ -45,9 +52,9 @@ const Slider = () => {
                             <p className='text-[#db2777] lg:text-2xl'>𝓟𝓸𝓽𝓽𝓮𝓻𝔂</p>
                             <h2 className='text-3xl lg:text-6xl font-semibold'>Fing and Buy Premium Art & Craft <span className='text-[#db2777]'>30% Off</span></h2>
                             <p className='font-light lg:text-xl pb-4'>Crafted with Care, Shaped by Tradition – Timeless Pottery for Every Home.</p>
-                            <Link><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
+                            <Link ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
                         </div>
-                        <div className='hidden md:flex'>
+                        <div  className='hidden md:flex'>
                             <img src="/second2.png" alt="" />
                         </div>
                     </div>
@@ -58,9 +65,9 @@ const Slider = () => {
                             <p className='text-[#db2777] lg:text-2xl'>𝓢𝓽𝓸𝓷𝓮𝔀𝓪𝓻𝓮</p>
                             <h2 className='text-3xl lg:text-6xl font-semibold'>Purchase Our Latest Product Up To <span className='text-[#db2777]'>30% Off</span></h2>
                             <p className='font-light lg:text-xl pb-4'>Durable, Elegant, Timeless – Discover the Beauty of Handcrafted Stoneware.</p>
-                            <Link><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
+                            <Link ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
                         </div>
-                        <div className='hidden md:flex'>
+                        <div  className='hidden md:flex'>
                             <img src="/third.png" alt="" />
                         </div>
                     </div>
