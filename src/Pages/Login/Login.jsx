@@ -4,7 +4,7 @@ import loginAnimation from "./Animation - 1737277869322.json"
 import { FcGoogle } from "react-icons/fc";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../Component/PrimaryButton'
 import { AuthContext } from '../../ContextApi/AuthProvider';
 import Swal from 'sweetalert2';
@@ -14,6 +14,7 @@ const Login = () => {
     const [hide,setHide] = useState(true);
     const navigate = useNavigate();
     const [err,setErr] = useState('');
+    const location = useLocation()
     const handelHide = () => {
         setHide(!hide);
     } ;
@@ -34,7 +35,7 @@ const Login = () => {
                 showConfirmButton: false,
                 timer: 1500
               });
-            navigate("/");
+              navigate(location?.state ? location.state : "/");
         })
         .catch((err) => {
             setErr("wrong email or password!");

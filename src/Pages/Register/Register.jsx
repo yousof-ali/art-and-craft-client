@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import loginanimation from './../Login/Animation - 1737277869322.json'
 import Lottie from 'lottie-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../Component/PrimaryButton'
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
@@ -14,6 +14,9 @@ const Register = () => {
     const { loader, createUserEmailPass } = useContext(AuthContext);
     const [hide, setHide] = useState(true);
     const [err, setErr] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const handelHide = () => {
         setHide(!hide);
     };
@@ -44,7 +47,7 @@ const Register = () => {
                     displayName: name, photoURL: photo
                 })
                 .then(() => {
-                   
+                   navigate(location?.state ? location.state : "/");
                 })
             })
             .catch((err) => {

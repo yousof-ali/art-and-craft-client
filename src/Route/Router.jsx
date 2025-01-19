@@ -13,6 +13,8 @@ import AddCraft from "../Pages/Addcraft/AddCraft"
 import Login from "../Pages/Login/Login"
 import Register from "../Pages/Register/Register"
 import Blog from "../Pages/Blog/Blog"
+import PrivateRoute from "./PrivateRoute"
+import Details from "../Pages/Details/Details"
 
 const router = createBrowserRouter([
     {
@@ -42,11 +44,15 @@ const router = createBrowserRouter([
             },
             {
                 path:'/add',
-                element:<MyCraft></MyCraft>
+                element:<PrivateRoute><MyCraft></MyCraft></PrivateRoute>
             },
             {
                 path:'/my-craft',
-                element:<MyCraft></MyCraft>
+                element:<PrivateRoute><MyCraft></MyCraft></PrivateRoute>
+            },
+            {
+                path:'/details',
+                element:<PrivateRoute><Details></Details></PrivateRoute>
             }
         ]
     },

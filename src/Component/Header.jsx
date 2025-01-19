@@ -87,7 +87,7 @@ const Header = () => {
             </div>
             <div className="navbar-end">
                 {
-                    user?<PrimaryButton onClick={handleLogOut} text={"logout"}></PrimaryButton>:<Link to={"/login"}><PrimaryButton text={'Login'}></PrimaryButton></Link>
+                    user?<><div><img title={user?.displayName} className='w-8 cursor-pointer mr-2 md:mr-4 rounded-full border-2 border-[#db2777]' src={user?.photoURL} alt="" /></div><PrimaryButton onClick={handleLogOut} text={"logout"}></PrimaryButton></>:<Link to={"/login"}><PrimaryButton text={'Login'}></PrimaryButton></Link>
                 }
                 
             </div>
