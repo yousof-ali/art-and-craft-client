@@ -1,17 +1,59 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css'
 import PrimaryButton from '../Component/PrimaryButton'
+import { AuthContext } from '../ContextApi/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const links = <>
-    <li >< NavLink to={'/'}>Home</NavLink></li>
-    <li >< NavLink to={'/all'}>Art & Craft</NavLink></li>
-    <li>< NavLink to={'/add'}>Add Craft </NavLink></li>
-    <li>< NavLink to={'/my-craft'}>My Art & Craft </NavLink></li>
-    <li>< NavLink to={'/blog'}>Blog </NavLink></li>
-    <li>< NavLink to={'/register'}>Register </NavLink></li>
+        <li >< NavLink to={'/'}>Home</NavLink></li>
+        <li >< NavLink to={'/all'}>Art & Craft</NavLink></li>
+        {
+            user && <>
+                <li>< NavLink to={'/add'}>Add Craft </NavLink></li>
+                <li>< NavLink to={'/my-craft'}>My Art & Craft </NavLink></li>
+            </>
+        }
+
+        <li>< NavLink to={'/blog'}>Blog </NavLink></li>
+        {
+            !user && <>
+                <li>< NavLink to={'/register'}>Register </NavLink></li>
+            </>
+        }
+
     </>
+
+
+    const handleLogOut = () => {
+        Swal.fire({
+            title: "Log Out?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Log out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logOut();
+                Swal.fire({
+                    title: "Log Out",
+                    position:'center',
+                    text: "Log Out Successfully",
+                    icon: "success"
+                });
+                navigate('/');
+            };
+        });
+
+    };
+
+
     return (
         <div className="navbar bg-base-200">
             <div className="navbar-start">
@@ -32,7 +74,7 @@ const Header = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm  dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow">
                         {links}
                     </ul>
                 </div>
@@ -44,7 +86,10 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to={"/login"}><PrimaryButton text={'Login'}></PrimaryButton></Link>
+                {
+                    user?<PrimaryButton onClick={handleLogOut} text={"logout"}></PrimaryButton>:<Link to={"/login"}><PrimaryButton text={'Login'}></PrimaryButton></Link>
+                }
+                
             </div>
         </div>
     );

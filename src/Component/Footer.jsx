@@ -28,8 +28,8 @@ const Footer = () => {
         </nav>
         <div>
           <h6 className='footer-title'>Get Newsletter</h6>
-          <p>Get on the List and 10% off your first order!</p>
-          <input type="text" className='p-4 w-full outline-none' placeholder='Enter email address' />
+          <p>Get on the List and <span className='text-[#db2777]'>10%</span> off your first order!</p>
+          <input type="text" className='p-4 w-full outline-[#db2777]' placeholder='Enter email address' />
           <PrimaryButton text={"Subscribe Now"}><FaArrowRight /></PrimaryButton>
           
         </div>

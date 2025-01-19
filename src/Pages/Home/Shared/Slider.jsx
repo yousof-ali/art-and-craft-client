@@ -25,7 +25,7 @@ const Slider = () => {
         once: true,
       });
     return (
-        <div className='max-w-[1800px]  mx-auto'>
+        <div className='max-w-[2000px]  mx-auto'>
             <Swiper
                 modules={[Navigation,Autoplay, Pagination, Scrollbar, A11y]}
                 slidesPerView={1}
