@@ -8,9 +8,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../Component/PrimaryButton'
 import { AuthContext } from '../../ContextApi/AuthProvider';
 import Swal from 'sweetalert2';
+import { FaFacebook } from "react-icons/fa6";
 
 const Login = () => {
-    const {logIn,googleLogin} = useContext(AuthContext);
+    const {logIn,googleLogin,facebookLogin} = useContext(AuthContext);
     const [hide,setHide] = useState(true);
     const navigate = useNavigate();
     const [err,setErr] = useState('');
@@ -51,7 +52,17 @@ const Login = () => {
         .catch((err) => {
             console.log(err.message);
         })
-    }
+    };
+    const handleFacebookLogin = () => {
+        facebookLogin()
+        .then(result => {
+            console.log(result.user)
+            navigate(location?.state ? location.state : "/");
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    };
     return (
         <div className='flex flex-col  min-h-[70vh]  md:flex-row container mx-auto justify-center items-center'>
             <div className='flex flex-col justify-center items-center flex-1 '>
@@ -91,8 +102,9 @@ const Login = () => {
                     <div class="divider divider-secondary px-4">Continue With</div>
 
 
-                    <div className='text-xl mx-4 flex '>
-                        <span onClick={handleGoogleLogin} className='flex cursor-pointer items-center border rounded-xl p-2 gap-2'><FcGoogle /> Google</span>
+                    <div className='text-xl mx-4 gap-4 flex '>
+                        <span onClick={handleGoogleLogin} className='flex hover:border-[#db2777] duration-500 cursor-pointer items-center border rounded-xl p-2 gap-2'><FcGoogle /> Google</span>
+                        {/* <span  className='flex hover:border-[#db2777] duration-500 cursor-pointer items-center border rounded-xl p-2 gap-2'><FaFacebook /> Facebook</span> */}
                     </div>
 
 

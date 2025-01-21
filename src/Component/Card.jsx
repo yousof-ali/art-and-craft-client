@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 const Card = ({ product }) => {
-    const { img, item_name, subcategory_name, short_description, price, rating } = product;
+    const {img, item_name, subcategory_name, short_description, price, rating } = product;
     const stars = Array(5).fill(0);
 
     return (
@@ -28,10 +28,10 @@ const Card = ({ product }) => {
                 <h2 className="card-title">{item_name}</h2>
                 <p className="font-light">{short_description}</p>
                 <p className="font-bold">
-                    Price: <span className="text-[#db2777]">{price} $</span>
+                    Price: <span className="text-[#db2777]">{price} </span>
                 </p>
                 <div className="card-actions justify-end">
-                    <Link to={"/details"}><PrimaryButton text="Details" /></Link>
+                    <Link to={`/details/${product?._id}`}><PrimaryButton text="Details" /></Link>
                 </div>
             </div>
 

@@ -53,7 +53,7 @@ const router = createBrowserRouter([
                 element:<PrivateRoute><MyCraft></MyCraft></PrivateRoute>
             },
             {
-                path:'/details',
+                path:'/details/:id',
                 element:<PrivateRoute><Details></Details></PrivateRoute>
             },
             {
