@@ -10,7 +10,7 @@ import { AuthContext } from '../../ContextApi/AuthProvider';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-    const {logIn} = useContext(AuthContext);
+    const {logIn,googleLogin} = useContext(AuthContext);
     const [hide,setHide] = useState(true);
     const navigate = useNavigate();
     const [err,setErr] = useState('');
@@ -31,7 +31,7 @@ const Login = () => {
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Your work has been saved",
+                title: "Login Successfully",
                 showConfirmButton: false,
                 timer: 1500
               });
@@ -41,6 +41,17 @@ const Login = () => {
             setErr("wrong email or password!");
         })
     };
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+        .then(result => {
+            console.log(result.user)
+            navigate(location?.state ? location.state : "/");
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    }
     return (
         <div className='flex flex-col  min-h-[70vh]  md:flex-row container mx-auto justify-center items-center'>
             <div className='flex flex-col justify-center items-center flex-1 '>
@@ -81,7 +92,7 @@ const Login = () => {
 
 
                     <div className='text-xl mx-4 flex '>
-                        <span className='flex cursor-pointer items-center border rounded-xl p-2 gap-2'><FcGoogle /> Google</span>
+                        <span onClick={handleGoogleLogin} className='flex cursor-pointer items-center border rounded-xl p-2 gap-2'><FcGoogle /> Google</span>
                     </div>
 
 

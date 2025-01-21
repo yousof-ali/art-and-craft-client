@@ -15,6 +15,8 @@ import Register from "../Pages/Register/Register"
 import Blog from "../Pages/Blog/Blog"
 import PrivateRoute from "./PrivateRoute"
 import Details from "../Pages/Details/Details"
+import MyAccount from "../Pages/MyAccount/MyAccount"
+import UPdateProfile from "../Pages/UpdateProfile/UPdateProfile"
 
 const router = createBrowserRouter([
     {
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
             {
                 path:'/details',
                 element:<PrivateRoute><Details></Details></PrivateRoute>
+            },
+            {
+                path:'/account',
+                element:<PrivateRoute><MyAccount></MyAccount></PrivateRoute>
+            },
+            {
+                path:'/update-profile',
+                element:<PrivateRoute><UPdateProfile></UPdateProfile></PrivateRoute>
             }
         ]
     },
