@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PrimaryButton from '../../Component/PrimaryButton'
+import Swal from 'sweetalert2';
 
 const Edit = () => {
-    const{id} = useParams();
+    const { id } = useParams();
     const [category, setCategory] = useState('Clary-made pottery');
     const [ratings, setrating] = useState(1);
     const [status, setStatus] = useState('In stock');
-    const [oldData,setOldData] = useState({});
+    const [oldData, setOldData] = useState({});
     const navigate = useNavigate();
 
     const handleChangeCategory = (e) => {
@@ -19,20 +20,20 @@ const Edit = () => {
     const handleStatus = (e) => {
         setStatus(e.target.value);
     };
-   
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/single-product/${id}`)
-        .then(res => res.json())
-        .then(result => {
-            setOldData(result)
-        
-            
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-    },[id]);
+            .then(res => res.json())
+            .then(result => {
+                setOldData(result)
+
+
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, [id]);
 
     const handleEdit = (e) => {
         e.preventDefault();
@@ -46,27 +47,35 @@ const Edit = () => {
         const customization = "Yes";
         const stockStatus = status;
 
-        const updatedData = {img,item_name,subcategory_name,short_description,price,rating,customization,stockStatus}
+        const updatedData = { img, item_name, subcategory_name, short_description, price, rating, customization, stockStatus }
         console.log(updatedData);
 
-        fetch(`http://localhost:5000/update/${id}`,{
-            method:"PUT",
-            headers:{
+        fetch(`http://localhost:5000/update/${id}`, {
+            method: "PUT",
+            headers: {
                 'content-type': 'application/json'
             },
-            body:JSON.stringify(updatedData)
+            body: JSON.stringify(updatedData)
         })
-        .then(res => res.json())
-        .then(result => {
-            console.log(result);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-        
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Update Successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/my-craft')
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+
     };
 
-     
+
 
     return (
         <div className='max-w-[1000px] mx-auto  bg-white mt-6 '>
@@ -79,7 +88,7 @@ const Edit = () => {
                             <label className="label">
                                 <span className="label-text">Item Name</span>
                             </label>
-                            <input type="=text" defaultValue={oldData?.item_name} name='name'  placeholder="Name" className="p-3 outline-[#db2777] border rounded" required />
+                            <input type="=text" defaultValue={oldData?.item_name} name='name' placeholder="Name" className="p-3 outline-[#db2777] border rounded" required />
                         </div>
                         <div className="form-control md:w-1/2">
                             <label className="label">
@@ -91,7 +100,7 @@ const Edit = () => {
                                 id=""
                                 onChange={handleChangeCategory}
                             >
-                                <option  value="Clary-made pottery">
+                                <option value="Clary-made pottery">
                                     {" "}
                                     Clary-made pottery
                                 </option>
@@ -122,7 +131,7 @@ const Edit = () => {
                     </div>
                     <div className='md:flex w-full gap-6'>
 
-                        
+
                         <div className='md:flex md:w-1/2 gap-2'>
                             <div className="form-control md:w-1/2">
                                 <label className="label">
@@ -135,7 +144,7 @@ const Edit = () => {
                                     <span className="label-text">Status</span>
                                 </label>
                                 <select
-                                defaultValue={oldData?.stockStatus}
+                                    defaultValue={oldData?.stockStatus}
                                     className="p-3 rounded border  outline-[#db2777]"
                                     name=""
                                     id=""
@@ -155,13 +164,13 @@ const Edit = () => {
                                 <label className="label">
                                     <span className="label-text">Rating</span>
                                 </label>
-                                <select 
-                                
+                                <select
+
                                     className="p-3 rounded border  outline-[#db2777]"
                                     name=""
                                     id=""
                                     onChange={handleRateing}
-                                    
+
                                 >
                                     <option value={1}>
                                         {" "}
@@ -180,7 +189,7 @@ const Edit = () => {
                     </div>
 
                     <div className='flex justify-end pt-5'>
-                        <PrimaryButton  text={"Update"}></PrimaryButton>
+                        <PrimaryButton text={"Update"}></PrimaryButton>
                     </div>
 
                 </form>

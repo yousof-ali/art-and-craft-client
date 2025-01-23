@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const MyCard = ({data}) => {
     const{_id,img,item_name,subcategory_name,short_description,price,rating,customization,processing_time,stockStatus} = data
     return (
-        <div className='grid mx-2 p-3 gap-4 border rounded duration-500 hover:border-[#db2777] md:grid-cols-3'>
+        <div className='grid mx-2 p-3 hover:shadow-md gap-4 border rounded duration-500 hover:border-[#db2777] md:grid-cols-3'>
            <div className=' col-span-1'>
             <img className='md:h-full h-[200px] w-full' src={img} alt="" />
 
