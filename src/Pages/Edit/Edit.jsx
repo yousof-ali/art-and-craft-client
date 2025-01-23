@@ -1,14 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../ContextApi/AuthProvider';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import PrimaryButton from '../../Component/PrimaryButton'
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 
-const AddCraft = () => {
+const Edit = () => {
+    const{id} = useParams();
     const [category, setCategory] = useState('Clary-made pottery');
     const [ratings, setrating] = useState(1);
     const [status, setStatus] = useState('In stock');
-    const { user } = useContext(AuthContext);
+    const [oldData,setOldData] = useState({});
     const navigate = useNavigate();
 
     const handleChangeCategory = (e) => {
@@ -20,8 +19,23 @@ const AddCraft = () => {
     const handleStatus = (e) => {
         setStatus(e.target.value);
     };
-    const handleAdd = (e) => {
-        e.preventDefault()
+   
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/single-product/${id}`)
+        .then(res => res.json())
+        .then(result => {
+            setOldData(result)
+        
+            
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    },[id]);
+
+    const handleEdit = (e) => {
+        e.preventDefault();
         const form = e.target;
         const img = form.imgurl.value;
         const item_name = form.name.value;
@@ -29,65 +43,55 @@ const AddCraft = () => {
         const short_description = form.des.value;
         const price = parseInt(form.price.value);
         const rating = parseInt(ratings);
-        const customization = "No";
-        const frist = Math.floor(Math.random() * 5) + 1;
-        const second = Math.floor(Math.random() * 4) + 6;
-        const processing_time = `${frist}-${second} days`;
+        const customization = "Yes";
         const stockStatus = status;
-        const email = user?.email;
 
-        const newData = { img, item_name, subcategory_name, short_description, price, rating, customization, processing_time, stockStatus, email };
+        const updatedData = {img,item_name,subcategory_name,short_description,price,rating,customization,stockStatus}
+        console.log(updatedData);
 
-        fetch('http://localhost:5000/new-craft', {
-            method: "POST",
-            headers: {
+        fetch(`http://localhost:5000/update/${id}`,{
+            method:"PUT",
+            headers:{
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(newData)
+            body:JSON.stringify(updatedData)
         })
-            .then(res => res.json())
-            .then(result => {
-                if (result.insertedId) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "New Craft Added!",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    navigate('/my-craft');
-                }
-            })
-            .catch((err) => {
-                console.log(err.message)
-            });
-
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+        
     };
+
+     
 
     return (
         <div className='max-w-[1000px] mx-auto  bg-white mt-6 '>
             <div className='border border-[#db2777] shadow-xl rounded mx-2'>
-                <h2 className='text-3xl text-center font-bold bg-[#db2777] text-white p-3 '> Add Craft </h2>
+                <h2 className='text-3xl text-center font-bold bg-[#db2777] text-white p-3 '> Update Craft </h2>
 
-                <form onSubmit={handleAdd} className='p-4 md:p-6 space-y-4' action="">
+                <form onSubmit={handleEdit} className='p-4 md:p-6 space-y-4' action="">
                     <div className='md:flex w-full gap-6'>
                         <div className="form-control md:w-1/2">
                             <label className="label">
                                 <span className="label-text">Item Name</span>
                             </label>
-                            <input type="=text" name='name' placeholder="Name" className="p-3 outline-[#db2777] border rounded" required />
+                            <input type="=text" defaultValue={oldData?.item_name} name='name'  placeholder="Name" className="p-3 outline-[#db2777] border rounded" required />
                         </div>
                         <div className="form-control md:w-1/2">
                             <label className="label">
                                 <span className="label-text">Category</span>
                             </label>
                             <select
-                                className="p-3 rounded border  outline-[#db2777]"
+                                className="p-3  rounded border  outline-[#db2777]"
                                 name=""
                                 id=""
                                 onChange={handleChangeCategory}
                             >
-                                <option value="Clary-made pottery">
+                                <option  value="Clary-made pottery">
                                     {" "}
                                     Clary-made pottery
                                 </option>
@@ -105,37 +109,33 @@ const AddCraft = () => {
                             <label className="label">
                                 <span className="label-text">Img URL</span>
                             </label>
-                            <input type="url" name='imgurl' placeholder="Photo URL" className="p-3 outline-[#db2777] border rounded" required />
+                            <input type="url" defaultValue={oldData?.img} name='imgurl' placeholder="Photo URL" className="p-3 outline-[#db2777] border rounded" required />
                         </div>
                         <div className="form-control md:w-1/2">
                             <label className="label">
                                 <span className="label-text">Description</span>
                             </label>
-                            <input type="=text" name='des' placeholder="Description" className="p-3 outline-[#db2777] border rounded" required />
+                            <input defaultValue={oldData?.short_description} type="=text" name='des' placeholder="Description" className="p-3 outline-[#db2777] border rounded" required />
                         </div>
 
 
                     </div>
                     <div className='md:flex w-full gap-6'>
 
-                        <div className="form-control md:w-1/2">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input readOnly value={user?.email} type="email" placeholder="Price" className="p-3 outline-[#db2777] border rounded" required />
-                        </div>
+                        
                         <div className='md:flex md:w-1/2 gap-2'>
                             <div className="form-control md:w-1/2">
                                 <label className="label">
                                     <span className="label-text">Price</span>
                                 </label>
-                                <input type="number" name='price' placeholder="Price" className="p-3 outline-[#db2777] border rounded" required />
+                                <input type="number" defaultValue={oldData?.price} name='price' placeholder="Price" className="p-3 outline-[#db2777] border rounded" required />
                             </div>
                             <div className="form-control md:w-1/2">
                                 <label className="label">
                                     <span className="label-text">Status</span>
                                 </label>
                                 <select
+                                defaultValue={oldData?.stockStatus}
                                     className="p-3 rounded border  outline-[#db2777]"
                                     name=""
                                     id=""
@@ -155,11 +155,13 @@ const AddCraft = () => {
                                 <label className="label">
                                     <span className="label-text">Rating</span>
                                 </label>
-                                <select
+                                <select 
+                                
                                     className="p-3 rounded border  outline-[#db2777]"
                                     name=""
                                     id=""
                                     onChange={handleRateing}
+                                    
                                 >
                                     <option value={1}>
                                         {" "}
@@ -178,7 +180,7 @@ const AddCraft = () => {
                     </div>
 
                     <div className='flex justify-end pt-5'>
-                        <PrimaryButton text={"Add"}></PrimaryButton>
+                        <PrimaryButton  text={"Update"}></PrimaryButton>
                     </div>
 
                 </form>
@@ -189,4 +191,4 @@ const AddCraft = () => {
     );
 };
 
-export default AddCraft;
+export default Edit;

@@ -17,6 +17,7 @@ import PrivateRoute from "./PrivateRoute"
 import Details from "../Pages/Details/Details"
 import MyAccount from "../Pages/MyAccount/MyAccount"
 import UPdateProfile from "../Pages/UpdateProfile/UPdateProfile"
+import Edit from "../Pages/Edit/Edit"
 
 const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
             {
                 path:'/update-profile',
                 element:<PrivateRoute><UPdateProfile></UPdateProfile></PrivateRoute>
+            },
+            {
+                path:'/edit/:id',
+                element:<PrivateRoute><Edit></Edit></PrivateRoute>
             }
         ]
     },

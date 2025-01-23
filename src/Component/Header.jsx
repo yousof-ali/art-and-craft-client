@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log(user);
+    
 
     const links = <>
         <li >< NavLink to={'/'}>Home</NavLink></li>
