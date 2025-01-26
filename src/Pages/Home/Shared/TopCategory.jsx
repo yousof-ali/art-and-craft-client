@@ -3,13 +3,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 
 
 
 
 const TopCategory = () => {
-    const[allData,setALlData] = useState([]);
+    const [allData, setALlData] = useState([]);
     var settings = {
         dots: true,
         infinite: false,
@@ -47,16 +48,16 @@ const TopCategory = () => {
 
     useEffect(() => {
         fetch('http://localhost:5000/all-craft')
-        .then(res => res.json())
-        .then(result => {
-             setALlData(result);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        })
-    },[]);
+            .then(res => res.json())
+            .then(result => {
+                setALlData(result);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
+    }, []);
 
-    
+
     return (
         <div className='container px-2 mx-auto pb-8'>
             <div className='divider'></div>
@@ -67,7 +68,9 @@ const TopCategory = () => {
                     <div className='px-2' >
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
-                                <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c1.jpg" alt="" />
+                                <Link to={`category/${'1'}`}>
+                                    <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c1.jpg" alt="" />
+                                </Link>
                             </div>
                         </div>
                         <div className='py-2'>
@@ -78,7 +81,9 @@ const TopCategory = () => {
                     <div className='px-2'>
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
-                                <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c2.jpg" alt="" />
+                                <Link to={`category/${'2'}`}>
+                                    <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c2.jpg" alt="" />
+                                </Link>
                             </div>
                         </div>
                         <div className='py-2'>
@@ -89,7 +94,9 @@ const TopCategory = () => {
                     <div className='px-2'>
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
-                                <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c3.jpg" alt="" />
+                                <Link to={`category/${'3'}`}>
+                                    <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c3.jpg" alt="" />
+                                </Link>
                             </div>
                         </div>
                         <div className='py-2'>
@@ -100,7 +107,9 @@ const TopCategory = () => {
                     <div className='px-2'>
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
+                                <Link to={`category/${'4'}`}>
                                 <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c4.jpg" alt="" />
+                                </Link>
                             </div>
                         </div>
                         <div className='py-2'>
@@ -111,18 +120,22 @@ const TopCategory = () => {
                     <div className='px-2'>
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
+                                <Link to={`/category/${'5'}`}>
                                 <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c5.jpg" alt="" />
+                                </Link>
                             </div>
                         </div>
                         <div className='py-2'>
                             <h3 className='font-bold text-xl text-center text-[#db2777]'>Ceramics & Architectural</h3>
-                            <p className='text-center'>{allData.filter(single => single.subcategory_name === 'Ceramics & Architectural').length} Products</p>
+                            <p className='text-center'>{allData.filter(single => single.subcategory_name === 'Ceramics and Architectural').length} Products</p>
                         </div>
                     </div>
                     <div className='px-2'>
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
-                                <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c6.jpg" alt="" />
+                               <Link to={`/category/${'6'}`}>
+                               <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src="./c6.jpg" alt="" />
+                               </Link>
                             </div>
                         </div>
                         <div className='py-2'>
@@ -130,7 +143,7 @@ const TopCategory = () => {
                             <p className='text-center'>{allData.filter(single => single.subcategory_name === 'Home decor pottery').length} Products</p>
                         </div>
                     </div>
-                    
+
                 </Slider>
             </div>
 

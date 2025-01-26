@@ -19,8 +19,6 @@ const Header = () => {
                 <li>< NavLink to={'/my-craft'}>My Art & Craft </NavLink></li>
             </>
         }
-
-        <li>< NavLink to={'/blog'}>Blog </NavLink></li>
         {
             !user && <>
                 <li>< NavLink to={'/register'}>Register </NavLink></li>

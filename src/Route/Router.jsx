@@ -12,12 +12,12 @@ import MyCraft from "../Pages/Mycraft/MyCraft"
 import AddCraft from "../Pages/Addcraft/AddCraft"
 import Login from "../Pages/Login/Login"
 import Register from "../Pages/Register/Register"
-import Blog from "../Pages/Blog/Blog"
 import PrivateRoute from "./PrivateRoute"
 import Details from "../Pages/Details/Details"
 import MyAccount from "../Pages/MyAccount/MyAccount"
 import UPdateProfile from "../Pages/UpdateProfile/UPdateProfile"
 import Edit from "../Pages/Edit/Edit"
+import Category from "../Pages/Category/Category"
 
 const router = createBrowserRouter([
     {
@@ -32,10 +32,6 @@ const router = createBrowserRouter([
             {
                 path:'/all',
                 element:<AllCraft></AllCraft>
-            },
-            {
-                path:'/blog',
-                element:<Blog></Blog>
             },
             {
                 path:'/register',
@@ -68,6 +64,10 @@ const router = createBrowserRouter([
             {
                 path:'/edit/:id',
                 element:<PrivateRoute><Edit></Edit></PrivateRoute>
+            },
+            {
+                path:'category/:id',
+                element:<Category></Category>
             }
         ]
     },

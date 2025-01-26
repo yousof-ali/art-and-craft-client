@@ -38,7 +38,7 @@ const Slider = () => {
                             <p className='text-[#db2777] lg:text-2xl'>𝓒𝓮𝓻𝓪𝓶𝓲𝓬𝓼</p>
                             <h2 className='text-3xl lg:text-6xl font-semibold'>Purchase Our Latest Product Up To <span className='text-[#db2777]'>30% Off</span></h2>
                             <p className='font-light lg:text-xl pb-4'>Experience the Art of Durability – Premium Ceramic Solutions for Every Need.</p>
-                            <Link><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
+                            <Link to={"/all"} ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
 
                         </div>
                         <div className='hidden md:flex'>
@@ -52,7 +52,7 @@ const Slider = () => {
                             <p className='text-[#db2777] lg:text-2xl'>𝓟𝓸𝓽𝓽𝓮𝓻𝔂</p>
                             <h2 className='text-3xl lg:text-6xl font-semibold'>Fing and Buy Premium Art & Craft <span className='text-[#db2777]'>30% Off</span></h2>
                             <p className='font-light lg:text-xl pb-4'>Crafted with Care, Shaped by Tradition – Timeless Pottery for Every Home.</p>
-                            <Link ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
+                            <Link to={"/all"} ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
                         </div>
                         <div  className='hidden md:flex'>
                             <img src="/second2.png" alt="" />
@@ -65,7 +65,7 @@ const Slider = () => {
                             <p className='text-[#db2777] lg:text-2xl'>𝓢𝓽𝓸𝓷𝓮𝔀𝓪𝓻𝓮</p>
                             <h2 className='text-3xl lg:text-6xl font-semibold'>Purchase Our Latest Product Up To <span className='text-[#db2777]'>30% Off</span></h2>
                             <p className='font-light lg:text-xl pb-4'>Durable, Elegant, Timeless – Discover the Beauty of Handcrafted Stoneware.</p>
-                            <Link ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
+                            <Link to={"/all"} ><PrimaryButton text={`Buy Now`}><FaArrowRight /></PrimaryButton></Link>
                         </div>
                         <div  className='hidden md:flex'>
                             <img src="/third.png" alt="" />

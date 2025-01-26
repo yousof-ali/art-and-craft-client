@@ -18,7 +18,7 @@ const Handmade = () => {
                 <img data-aos="zoom-in" className='w-52 md:w-64 rounded-t-full border-4 border-white ' src="./h3.jpg" alt="" />
                </div>
             </div>
-            <div className='flex-1 px-2 md:px-0 space-y-3'>
+            <div className='flex-1 px-2 md:px-0 space-y-4'>
                 <h3 className='text-xl font-bold text-[#db2777]'>MORE NATURE IN MORE HOMES</h3>
                 <h2 className='text-2xl md:text-4xl font-bold'>Handmade with patience and love for the artisansl craft</h2>
                 <div className='flex gap-4'>
@@ -37,7 +37,7 @@ const Handmade = () => {
                         <p>Each items is made with care and....</p>
                     </div>
                 </div>
-                <Link><PrimaryButton text={"Shop Now"}></PrimaryButton></Link>
+                <Link to={"/all"}><PrimaryButton text={"Shop Now"}></PrimaryButton></Link>
             </div>
         </div>
     );

@@ -1,0 +1,32 @@
+[
+    {  
+         "id":"1",
+        "category":"Clary-made pottery",
+        "img":"https://i.ibb.co.com/Gs3DrFm/c1.webp"
+    },
+    {   
+        "id":"2",
+        "category":"Stoneware",
+        "img":"https://i.ibb.co.com/3sRH7d8/c2.jpg"
+    },
+    {   
+        "id":"2",
+        "category":"Porcelain",
+        "img":"https://i.ibb.co.com/pbLQ2mW/c3.webp"
+    },
+    {  
+         "id":"2",
+        "category":"Terra Cotta",
+        "img":"https://i.ibb.co.com/7Xtz3T4/c4.jpg"
+    },
+    {   
+        "id":"2",
+        "category":"Ceramics and Architectural",
+        "img":"https://i.ibb.co.com/DKn0D4s/c5.webp"
+    },
+    {
+        "id":"2",
+        "category":"Home decor pottery",
+        "img":"https://i.ibb.co.com/fY3dbt0/c6.jpg"
+    }
+]
