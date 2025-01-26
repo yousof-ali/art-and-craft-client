@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 const TopCategory = () => {
     const [allData, setALlData] = useState([]);
+    const [categories,setCategories] = useState([]);
     var settings = {
         dots: true,
         infinite: false,
@@ -57,6 +58,18 @@ const TopCategory = () => {
             })
     }, []);
 
+    useEffect(() => {
+        fetch('/category.json')
+        .then(res => res.json())
+        .then(result => {
+            setCategories(result);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    },[]);
+
+    console.log(categories)
 
     return (
         <div className='container px-2 mx-auto pb-8'>
@@ -65,7 +78,22 @@ const TopCategory = () => {
             <h2 className='text-2xl pb-0 font-bold flex items-center gap-3'>Top <span className='text-[#db2777]'>Categories </span><span className='text-[#db2777]'><FaArrowRight /></span></h2>
             <div className="slider-container py-6 ">
                 <Slider {...settings}>
-                    <div className='px-2' >
+                    {
+                        categories?.map(single => <div key={single.id} className='px-2' >
+                            <div className='flex justify-center '>
+                                <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
+                                    <Link to={`category/${single.id}`}>
+                                        <img className='cursor-pointer rounded-full p-2 transform hover:scale-110 transition duration-1000' src={single.img} alt="" />
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className='py-2'>
+                                <h3 className='font-bold text-xl text-center text-[#db2777]'>{single.category}</h3>
+                                <p className='text-center'>{allData.filter(singledata => singledata.subcategory_name === single.category).length} Products</p>
+                            </div>
+                        </div>)
+                    }
+                    {/* <div className='px-2' >
                         <div className='flex justify-center '>
                             <div className='p-2 hover:border-[#db2777] duration-500 rounded-full border-dotted border-2 overflow-hidden'>
                                 <Link to={`category/${'1'}`}>
@@ -142,7 +170,7 @@ const TopCategory = () => {
                             <h3 className='font-bold text-xl text-center text-[#db2777]'>Home decor pottery</h3>
                             <p className='text-center'>{allData.filter(single => single.subcategory_name === 'Home decor pottery').length} Products</p>
                         </div>
-                    </div>
+                    </div> */}
 
                 </Slider>
             </div>

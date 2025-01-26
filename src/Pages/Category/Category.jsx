@@ -9,17 +9,32 @@ const Category = () => {
     const [data,setData] =  useState([]);
     const [loading,setLoading] = useState(true);
     const [categories,setCategories] = useState([])
+    // useEffect(() => {
+    //     const categories = {
+    //         '1': 'Clary-made pottery',
+    //         '2': 'Stoneware',
+    //         '3': 'Porcelain',
+    //         '4': 'Terra Cotta',
+    //         '5': 'Ceramics and Architectural',
+    //         '6': 'Home decor pottery',
+    //     };
+    //     setQuery(categories[id] || 'Unknown category');
+    // }, [id]);
+
+
     useEffect(() => {
-        const categories = {
-            '1': 'Clary-made pottery',
-            '2': 'Stoneware',
-            '3': 'Porcelain',
-            '4': 'Terra Cotta',
-            '5': 'Ceramics and Architectural',
-            '6': 'Home decor pottery',
-        };
-        setQuery(categories[id] || 'Unknown category');
-    }, [id]);
+        fetch('/category.json')
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            setCategories(result);
+            const filtered = result.find(single => single.id == id)
+            setQuery(filtered.category);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    },[id]);
 
     useEffect(() => {
         if (query && query !== 'Unknown category') {
@@ -37,17 +52,7 @@ const Category = () => {
         }
     }, [query]);
 
-    useEffect(() => {
-        fetch('/category.json')
-        .then(res => res.json())
-        .then(result => {
-            console.log(result);
-            setCategories(result);
-        })
-        .then((err) => {
-            console.log(err.message);
-        })
-    },[]);
+   
 
     return (
         <div className='container mx-auto mb-4'>
@@ -55,7 +60,7 @@ const Category = () => {
                 {query}
             </h2>
             {
-                loading&&<span>Loading......</span>
+                loading&&<p className='text-center text-2xl pt-24'><span class="loading loading-spinner text-secondary"></span> </p>
             }
             <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4 lg:gap-8'>
                 {
@@ -65,7 +70,7 @@ const Category = () => {
             <h2 className='text-2xl font-bold text-[#db2777] mt-6 mb-4'>More Categories</h2>
             <div className=''>
                 {
-                   categories?.map((single,indx) => <Link to={`/category/${indx+1}`} className='mx-4'><PrimaryButton className={'mb-4'} text={single.category}></PrimaryButton></Link>)
+                   categories?.filter(single => single.id !== id).map((single,indx) => <Link to={`/category/${single.id}`} className='mx-4'><PrimaryButton className={'mb-4'} text={single.category}></PrimaryButton></Link>)
                 }
             </div>
             
