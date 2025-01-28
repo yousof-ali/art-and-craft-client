@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 
 
 
+
+
 const Register = () => {
     const { loader, createUserEmailPass } = useContext(AuthContext);
     const [hide, setHide] = useState(true);
