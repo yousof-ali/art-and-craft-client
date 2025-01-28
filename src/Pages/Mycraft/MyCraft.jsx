@@ -60,7 +60,7 @@ const MyCraft = () => {
                 </div>
                 <div className='grid grid-cols-1 my-4 gap-4 lg:grid-cols-2'>
                     {
-                        mycraft.map(single => <MyCard key={single._id} data={single}></MyCard>)
+                        mycraft.map(single => <MyCard setMycraft={setMycraft} mycraft={mycraft}  key={single._id} data={single}></MyCard>)
                     }
                 </div>
             </div>
