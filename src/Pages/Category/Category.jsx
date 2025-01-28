@@ -67,6 +67,7 @@ const Category = () => {
                    data?.map(single => <Card product={single} key={single._id}></Card>)
                 }
             </div>
+            <div className='divider'></div>
             <h2 className='text-2xl font-bold text-[#db2777] mt-6 mb-4'>More Categories</h2>
             <div className=''>
                 {

@@ -7,6 +7,7 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { AuthContext } from '../../ContextApi/AuthProvider';
 import { updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 
 
@@ -46,9 +47,16 @@ const Register = () => {
                 updateProfile(result.user, {
                     displayName: name, photoURL: photo
                 })
-                .then(() => {
-                   navigate(location?.state ? location.state : "/");
-                })
+                    .then(() => {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Account Created",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate(location?.state ? location.state : "/");
+                    })
             })
             .catch((err) => {
                 setErr(err.message);
