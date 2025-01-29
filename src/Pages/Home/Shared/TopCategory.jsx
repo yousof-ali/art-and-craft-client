@@ -75,7 +75,7 @@ const TopCategory = () => {
         <div className='container px-2 mx-auto pb-8'>
             <div className='divider'></div>
 
-            <h2 className='text-2xl pb-0 font-bold flex items-center gap-3'>Top <span className='text-[#db2777]'>Categories </span><span className='text-[#db2777]'><FaArrowRight /></span></h2>
+            <h2 className='text-2xl pb-0 font-bold flex items-center gap-3'><span className='dark:text-white'>Top</span> <span className='text-[#db2777]'>Categories </span><span className='text-[#db2777]'><FaArrowRight /></span></h2>
             <div className="slider-container py-6 ">
                 <Slider {...settings}>
                     {
@@ -89,7 +89,7 @@ const TopCategory = () => {
                             </div>
                             <div className='py-2'>
                                 <h3 className='font-bold text-xl text-center text-[#db2777]'>{single.category}</h3>
-                                <p className='text-center'>{allData.filter(singledata => singledata.subcategory_name === single.category).length} Products</p>
+                                <p className='dark:text-gray-200 text-center'>{allData.filter(singledata => singledata.subcategory_name === single.category).length} Products</p>
                             </div>
                         </div>)
                     }

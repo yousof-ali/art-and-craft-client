@@ -17,7 +17,7 @@ const PopularProduct = () => {
     return (
         <div className='container px-2 mx-auto py-8'>
             
-            <h2 className='text-2xl font-bold'>Popular <span className='text-[#db2777]'>Product</span></h2>
+            <h2 className='text-2xl font-bold'><span className='dark:text-white'>Popular</span> <span className='text-[#db2777]'>Product</span></h2>
 
             {
                 popularProduct.length<1&&<p className='py-24 text-center '><span className="loading loading-spinner  text-secondary"></span></p>

@@ -8,6 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import { AuthContext } from '../ContextApi/AuthProvider';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import { getItems, removeItems, setItems } from '../utilites/localstorage';
 
 
 
@@ -22,69 +23,89 @@ const Card = ({ product }) => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getfav`)
-            .then(res => res.json())
-            .then(result => { 
-                const fil = result.filter(single => single.email === user?.email)
-                setfavr(fil);   
-            })
-            .catch((err) => {
-                console.log(err.message);
-            })
+        const fetchFavorites = async () => {
+            if (!user) {
+                const localFavs = getItems();
+                setfavr(localFavs);
+                console.log(localFavs);
+            } else {
+                try {
+                    const response = await fetch(`http://localhost:5000/getfav`);
+                    const result = await response.json();
+                    const filteredFavorites = result.filter(single => single.email === user?.email);
+                    setfavr(filteredFavorites);
+                    console.log(filteredFavorites)
+                } catch (error) {
+                    console.error("Error fetching favorites:", error);
+                }
+            }
+        };
+
+        fetchFavorites();
     }, [user]);
-    
+
 
 
     const handleFav = (id) => {
         if (!user) {
-            navigate('/login')
-            return
-        }
-        const ids = id
-        const email = user?.email
-        const status = 'yes'
-
-        const fav = { ids, email, status }
-
-        const exist = favr.find(single => single.ids === ids );
-
-        if (!exist) {
-            fetch(`http://localhost:5000/favorites`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(fav)
-            })
-                .then(res => res.json())
-                .then(result => {
-                    if (result.insertedId) {
-                        setfavr([...favr, fav]);
-                        setAlert({ open: true, message: 'Added to Favorites!', severity: 'success' });
-                    } else {
-                        console.log("lkdhgeoit")
-                    }
-
-                });
-
+            const oldData = getItems();
+            if (oldData.includes(id)) {
+                removeItems(id);
+                setfavr(oldData.filter(single => single !== id));
+            } else {
+                setItems(id);
+                setfavr([...oldData, id]);
+            }
         } else {
-            fetch(`http://localhost:5000/unfav/${id}`, {
-                method: "DELETE"
-            })
-                .then(res => res.json())
-                .then(result => {
-                    console.log(result)
-                    if (result.deletedCount > 0) {
-                        const filtar = favr.filter(single => single.ids !== id)
-                        setfavr(filtar);
-                        setAlert({ open: true, message: 'Remove to Favorites!', severity: 'success' });
-                    }
+            const ids = id
+            const email = user?.email
+            const status = 'yes'
+            console.log("ldkghd")
+
+            const fav = { ids, email, status }
+
+            const exist = favr.find(single => single.ids === ids);
+
+            if (!exist) {
+                fetch(`http://localhost:5000/favorites`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(fav)
                 })
-                .catch((err) => {
-                    console.log(err.message);
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.insertedId) {
+                            setfavr([...favr, fav]);
+                            setAlert({ open: true, message: 'Added to Favorites!', severity: 'success' });
+                        } else {
+                            console.log("lkdhgeoit")
+                        }
+
+                    });
+
+            } else {
+                fetch(`http://localhost:5000/unfav/${id}`, {
+                    method: "DELETE"
                 })
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result)
+                        if (result.deletedCount > 0) {
+                            const filtar = favr.filter(single => single.ids !== id)
+                            setfavr(filtar);
+                            setAlert({ open: true, message: 'Remove to Favorites!', severity: 'success' });
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    })
+
+            }
 
         }
+
 
 
     };
@@ -157,25 +178,36 @@ const Card = ({ product }) => {
             {/* Hover Buttons */}
             <div className="absolute top-1 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex gap-2">
-                   
-                            <button
-                                onClick={() => handleFav(_id)}
-                                data-tooltip-id="heart-tooltip"
-                                data-tooltip-content={
-                                    favr.find((single) => single.ids == _id)
-                                        ? 'Favorites'
-                                        : 'Add to Favorites'
-                                }
-                                className="text-xl font-bold cursor-pointer bg-white p-2 rounded-full text-[#db2777]"
-                            >
-                                {favr.find((single) => single.ids == _id) ? (
-                                    <FaHeart />
-                                ) : (
-                                    <FaRegHeart />
-                                )}
-                            </button>
-                        
-                    
+
+                    <button
+                        onClick={() => handleFav(_id)}
+                        data-tooltip-id="heart-tooltip"
+                        data-tooltip-content={
+                            user ? (favr.find((single) => single.ids == _id)
+                                ? 'Favorites'
+                                : 'Add to Favorites') : (
+                                favr.find((single) => single == _id)
+                                    ? 'Favorites'
+                                    : 'Add to Favorites'
+                            )
+
+                        }
+                        className="text-xl font-bold cursor-pointer bg-white p-2 rounded-full text-[#db2777]"
+                    >
+                        {user ? (favr.find((single) => single.ids == _id) ? (
+                            <FaHeart />
+                        ) : (
+                            <FaRegHeart />
+                        )) : favr.find((single) => single == _id) ? (
+                            <FaHeart />
+                        ) : (
+                            <FaRegHeart />
+                        )
+
+                        }
+                    </button>
+
+
 
 
                     {/* <button data-tooltip-id="bookmark-tooltip"
