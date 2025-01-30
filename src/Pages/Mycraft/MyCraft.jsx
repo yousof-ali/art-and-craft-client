@@ -10,12 +10,11 @@ const MyCraft = () => {
     const [customization, setCustomization] = useState('all');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-craft?email=${user?.email}`)
+        fetch(`https://art-and-craft-server-one.vercel.app/my-craft?email=${user?.email}`)
             .then(res => res.json())
             .then(result => {
                 setAllCraft(result);
                 setMycraft(result);
-                console.log(customization);
             })
             .catch((err) => {
                 console.log(err.message)

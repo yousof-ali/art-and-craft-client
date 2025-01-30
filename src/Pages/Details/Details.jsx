@@ -10,11 +10,12 @@ const Details = () => {
     const stars = Array(5).fill(0);
     const [related, setRelated] = useState([]);
     const [loader, setLoader] = useState(true);
+    const [category,setCategory] = useState("");
 
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/single-product/${id}`)
+        fetch(`https://art-and-craft-server-one.vercel.app/single-product/${id}`)
             .then(res => res.json())
             .then(result => {
                 setProduct(result);
@@ -24,13 +25,16 @@ const Details = () => {
             })
     }, [id]);
 
+
+
+
+
     useEffect(() => {
         if (product) {
             setLoader(true)
-            fetch(`http://localhost:5000/category?category=${product.subcategory_name}`)
+            fetch(`https://art-and-craft-server-one.vercel.app/category?category=${product.subcategory_name}`)
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result);
                     setRelated(result);
                     setLoader(false);
                 })
@@ -41,6 +45,20 @@ const Details = () => {
         };
 
     }, [product])
+
+
+    useEffect(() => {
+        fetch('/category.json')
+        .then(res => res.json())
+        .then(result => {
+            const filter = result.find(single => single.category == product?.subcategory_name)
+            setCategory(filter);
+
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+    },[product]);
 
     return (
         <div className='container mx-auto bg-white'>
@@ -102,7 +120,7 @@ const Details = () => {
                             <div className="absolute inset-0 bg-black bg-opacity-0 transition-all duration-500 group-hover:bg-opacity-10"></div>
                         </div></Link>)
                     }
-                    <Link><PrimaryButton text={"More"}></PrimaryButton></Link>
+                    <Link to={`/category/${parseInt(category?.id)}`}><PrimaryButton  text={"More"}></PrimaryButton></Link>
                 </div>
             </div>
         </div>

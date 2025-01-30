@@ -23,7 +23,7 @@ const Edit = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/single-product/${id}`)
+        fetch(`https://art-and-craft-server-one.vercel.app/single-product/${id}`)
             .then(res => res.json())
             .then(result => {
                 setOldData(result)
@@ -48,9 +48,9 @@ const Edit = () => {
         const stockStatus = status;
 
         const updatedData = { img, item_name, subcategory_name, short_description, price, rating, customization, stockStatus }
-        console.log(updatedData);
+        
 
-        fetch(`http://localhost:5000/update/${id}`, {
+        fetch(`https://art-and-craft-server-one.vercel.app/update/${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -59,7 +59,6 @@ const Edit = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 Swal.fire({
                     position: "center",
                     icon: "success",

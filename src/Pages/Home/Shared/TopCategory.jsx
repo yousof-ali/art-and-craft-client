@@ -48,7 +48,7 @@ const TopCategory = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-craft')
+        fetch('https://art-and-craft-server-one.vercel.app/all-craft')
             .then(res => res.json())
             .then(result => {
                 setALlData(result);
@@ -69,7 +69,6 @@ const TopCategory = () => {
         })
     },[]);
 
-    console.log(categories)
 
     return (
         <div className='container px-2 mx-auto pb-8'>

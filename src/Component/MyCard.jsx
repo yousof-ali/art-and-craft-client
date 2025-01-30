@@ -18,12 +18,11 @@ const MyCard = ({ data, mycraft, setMycraft }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/delete-mycraft/${id}`,{
+                fetch(`https://art-and-craft-server-one.vercel.app/delete-mycraft/${id}`,{
                     method:"DELETE"
                 })
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result);
                     const newData = mycraft.filter(single => single._id !==id);
                     setMycraft(newData);
                 })

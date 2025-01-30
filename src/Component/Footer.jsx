@@ -4,8 +4,8 @@ import { FaArrowRight } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="footer bg-base-200 text-base-content p-10">
+    <div className=''>
+      <footer className="footer dark:bg-gray-900 bg-base-200 dark:text-gray-300 text-base-content p-10">
         <nav>
           <h6 className="footer-title ">Services</h6>
           <a className="link link-hover">Branding</a>
@@ -29,12 +29,12 @@ const Footer = () => {
         <div>
           <h6 className='footer-title'>Get Newsletter</h6>
           <p>Get on the List and <span className='text-[#db2777]'>10%</span> off your first order!</p>
-          <input type="text" className='p-4 w-full outline-[#db2777]' placeholder='Enter email address' />
+          <input type="text" className='p-4 dark:bg-gray-300 w-full outline-[#db2777]' placeholder='Enter email address' />
           <PrimaryButton text={"Subscribe Now"}><FaArrowRight /></PrimaryButton>
           
         </div>
       </footer>
-      <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+      <footer className="footer bg-base-200 text-base-content dark:text-gray-300  dark:bg-gray-900 border-base-300 border-t px-10 py-4">
         <aside >
         <a className="flex items-center gap-2 text-xl"><img className='w-10' src="/logo.png" alt="" />𝕮𝖗𝖆𝖋𝖙𝖔𝖗𝖆</a>
           <p>

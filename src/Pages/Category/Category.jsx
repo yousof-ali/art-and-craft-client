@@ -26,7 +26,6 @@ const Category = () => {
         fetch('/category.json')
         .then(res => res.json())
         .then(result => {
-            console.log(result);
             setCategories(result);
             const filtered = result.find(single => single.id == id)
             setQuery(filtered.category);
@@ -39,7 +38,7 @@ const Category = () => {
     useEffect(() => {
         if (query && query !== 'Unknown category') {
             setLoading(true);
-            fetch(`http://localhost:5000/category?category=${query}`)
+            fetch(`https://art-and-craft-server-one.vercel.app/category?category=${query}`)
                 .then((res) => res.json())
                 .then((result) => {
                     setData(result);

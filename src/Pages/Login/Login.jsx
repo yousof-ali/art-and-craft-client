@@ -28,7 +28,6 @@ const Login = () => {
         const password = from.password.value 
         logIn(email,password)
         .then(result => {
-            console.log(result);
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -46,7 +45,6 @@ const Login = () => {
     const handleGoogleLogin = () => {
         googleLogin()
         .then(result => {
-            console.log(result.user)
             navigate(location?.state ? location.state : "/");
         })
         .catch((err) => {
@@ -56,7 +54,6 @@ const Login = () => {
     const handleFacebookLogin = () => {
         facebookLogin()
         .then(result => {
-            console.log(result.user)
             navigate(location?.state ? location.state : "/");
         })
         .catch((err) => {

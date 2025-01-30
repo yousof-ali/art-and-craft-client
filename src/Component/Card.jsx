@@ -27,14 +27,13 @@ const Card = ({ product }) => {
             if (!user) {
                 const localFavs = getItems();
                 setfavr(localFavs);
-                console.log(localFavs);
+                
             } else {
                 try {
-                    const response = await fetch(`http://localhost:5000/getfav`);
+                    const response = await fetch(`https://art-and-craft-server-one.vercel.app/getfav`);
                     const result = await response.json();
                     const filteredFavorites = result.filter(single => single.email === user?.email);
                     setfavr(filteredFavorites);
-                    console.log(filteredFavorites)
                 } catch (error) {
                     console.error("Error fetching favorites:", error);
                 }
@@ -60,14 +59,13 @@ const Card = ({ product }) => {
             const ids = id
             const email = user?.email
             const status = 'yes'
-            console.log("ldkghd")
 
             const fav = { ids, email, status }
 
             const exist = favr.find(single => single.ids === ids);
 
             if (!exist) {
-                fetch(`http://localhost:5000/favorites`, {
+                fetch(`https://art-and-craft-server-one.vercel.app/favorites`, {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
@@ -80,18 +78,18 @@ const Card = ({ product }) => {
                             setfavr([...favr, fav]);
                             setAlert({ open: true, message: 'Added to Favorites!', severity: 'success' });
                         } else {
-                            console.log("lkdhgeoit")
+                            
                         }
 
                     });
 
             } else {
-                fetch(`http://localhost:5000/unfav/${id}`, {
+                fetch(`https://art-and-craft-server-one.vercel.app/unfav/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
                     .then(result => {
-                        console.log(result)
+                        
                         if (result.deletedCount > 0) {
                             const filtar = favr.filter(single => single.ids !== id)
                             setfavr(filtar);
@@ -125,7 +123,7 @@ const Card = ({ product }) => {
     //     const exist = bookmark.find(single => single.ids === ids);
 
     //     if(!exist){
-    //         fetch(`http://localhost:5000/bookmark`,{
+    //         fetch(`https://art-and-craft-server-one.vercel.app/bookmark`,{
     //             method:"POST",
     //             headers:{
     //                 'content-type':'application/json'

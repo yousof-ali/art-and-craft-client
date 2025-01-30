@@ -4,11 +4,10 @@ import Card from '../../../Component/Card';
 const PopularProduct = () => {
     const [popularProduct,setPopularProduct] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/all-craft')
+        fetch('https://art-and-craft-server-one.vercel.app/all-craft')
         .then(res => res.json())
         .then(data => {
             setPopularProduct(data)
-            console.log(data);
         })
         .catch((err) => {
             console.log(err.message);

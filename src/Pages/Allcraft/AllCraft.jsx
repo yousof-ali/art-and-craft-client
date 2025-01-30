@@ -6,7 +6,7 @@ const AllCraft = () => {
     const [alldata,setAllData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-craft')
+        fetch('https://art-and-craft-server-one.vercel.app/all-craft')
         .then(res => res.json())
         .then(result => {
             setAllData(result);
